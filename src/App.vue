@@ -1,28 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-if="isDrizzleInitialized" id="app">
+    <h1>Sign the Guestbook</h1>
+    <drizzle-contract-form
+      contractName="Guestbook"
+      method="signBook"
+      :placeholders="['Name']"
+    />
+    <h2>Guests:</h2>
+    <ul v-if="getNames">
+      <li v-for="(name, i) in getNames" :key="i">{{ utils.toUtf8(name) }}</li>
+    </ul>
+  </div>
+  <div v-else>
+    Loading application...
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { mapGetters } from "vuex"
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: "app",
+  computed: {
+    ...mapGetters("drizzle", ["drizzleInstance", "isDrizzleInitialized"]),
+    ...mapGetters("contracts", ["getContractData"]),
+    getNames() {
+      let data = this.getContractData({
+        contract: "Guestbook",
+        method: "getNames"
+      });
+      if (data === "loading") return false;
+      return data
+    },
+    utils() {
+      return this.drizzleInstance.web3.utils
+    }
+  },
+  created() {
+    this.$store.dispatch("drizzle/REGISTER_CONTRACT", {
+      contractName: "Guestbook",
+      method: "getNames",
+      methodArgs: []
+    })
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
