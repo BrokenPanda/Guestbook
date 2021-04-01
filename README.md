@@ -7,7 +7,7 @@ npm install truffle -g // Install Truffle, the Development Framework for Ethereu
 npm install @drizzle/vue-plugin // Install Drizzle, a Frontend Library for dApp Development
 ```
 
-## Project setup
+## Setup
 ```
 truffle develop // Starts your own CLI Blockchain (Your Backend)
 ```
@@ -26,7 +26,7 @@ npm run build
 ```
 
 ### Connecting MetaMask
-(Save your MetaMask Seed Phrase before importing a new one)
-Import your Wallet by choosing "Import Account from Seed Phrase" and pasting the 12-word-passphrase in.
-After that, go to Settings -> Networks and change the Port of "localhost 8545" to 9545.
-Reload the Page and - that's it! Write down your name and sign your Guestbook! :)
+- (Save your MetaMask Seed Phrase before importing a new one)
+- Import your Wallet by choosing "Import Account from Seed Phrase" and pasting the 12-word-passphrase in.
+- After that, go to Settings -> Networks and change the Port of "localhost 8545" to 9545.
+- Reload the Page and - that's it! Write down your name and sign your Guestbook! :)
